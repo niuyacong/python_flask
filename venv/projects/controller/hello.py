@@ -1,7 +1,8 @@
 
 from application import app
 from flask import render_template, request
-
+from application import conn
+import json
 @app.route('/')
 def index():
     return 'Hello World11!'
@@ -30,9 +31,20 @@ def login():
 def profile():
     return 'The about page'
 
-# with app.test_request_context():
-#       print (url_for('index'))
-#       print (url_for('login'))
-#       print( url_for('login', next='/'))
-#       print (url_for('profile', username='John Doe'))
 
+@app.route('/test')
+def test():
+    cursor=conn.cursor()
+    cursor.execute('insert into test(name) values(%s)',['niu'])
+    conn.commit()
+    print(cursor.rowcount)
+    cursor.close()
+    return 'success'
+
+
+@app.route('/city')
+def  insert_data():
+    with open(r"resource/test.json",'r') as load_f:
+        load_dict = json.load(load_f)
+        print(load_dict)
+    return 'success'
