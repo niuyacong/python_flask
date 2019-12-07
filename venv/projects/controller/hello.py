@@ -1,3 +1,6 @@
+'test module'
+__author__ = 'nyc'
+
 
 from application import app
 from flask import render_template, request
@@ -41,10 +44,20 @@ def test():
     cursor.close()
     return 'success'
 
-
+# 省市县的json数据（来源：weui），导入到数据库中
 @app.route('/city')
 def  insert_data():
     with open(r"resource/test.json",'r') as load_f:
         load_dict = json.load(load_f)
-        print(load_dict)
+        cursor=conn.cursor()
+        for prov in load_dict:
+            cursor.execute('insert into tb_province(provid,provname,state) values(%s,%s,\'1\')',[prov["code"],prov["name"]])
+            if len(prov["sub"])>0:
+                for city in prov["sub"]:
+                    cursor.execute('insert into tb_city(cityid,cityname,provid,provname,state) values(%s,%s,%s,%s,\'1\')',[city["code"],city["name"],prov["code"],prov["name"]])
+                    if 'sub' in city and len(city["sub"])>0:
+                        for country in city["sub"]:
+                            cursor.execute('insert into tb_county(countyid,countyname,cityid,cityname,state) values(%s,%s,%s,%s,\'1\')',[country["code"],country["name"],city["code"],city["name"]])  
+        conn.commit()
+        cursor.close()
     return 'success'
