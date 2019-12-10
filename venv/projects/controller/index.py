@@ -9,4 +9,12 @@ from application import conn
 
 @app.route('/index')
 def index(name=None):
-    return render_template('index.html')
+    cursor=conn.cursor()
+    cursor.execute("select id,title,code,`table` from tb_table")
+    value=cursor.fetchall()
+    conn.commit()
+    conn.close()
+    print('---------------')
+    
+    print(type(value))
+    return render_template('index.html',data=value)

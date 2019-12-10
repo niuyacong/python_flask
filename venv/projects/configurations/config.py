@@ -2,6 +2,6 @@ class configurations(object):
     HOSTNAME    = 'localhost'
     USERNAME    = 'root'
     PASSWORD    = 'root'
-    DATABASE    = 'city'
+    DATABASE    = 'adm'
     CURSOR_CL   = 'DictCursor'
     SECRET_KEY  = 'THIS#IS#A#SECRET'
