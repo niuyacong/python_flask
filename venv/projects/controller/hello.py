@@ -6,9 +6,7 @@ from application import app
 from flask import render_template, request
 from application import conn
 import json
-@app.route('/')
-def index():
-    return 'Hello World11!'
+
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
