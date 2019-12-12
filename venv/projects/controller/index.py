@@ -12,9 +12,9 @@ def index(name=None):
     cursor=conn.cursor()
     cursor.execute("select id,title,code,`table` from tb_table")
     value=cursor.fetchall()
-    conn.commit()
-    conn.close()
-    print('---------------')
-    
-    print(type(value))
+    print('-----------------')
+    print(value)
+    cursor.close()
     return render_template('index.html',data=value)
+
+
