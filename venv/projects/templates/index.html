@@ -39,7 +39,7 @@
                   <th>标题</th>
                   <th>Code</th>
                   <th>表名</th>
-                  <th>表名</th>
+                  <th>操作</th>
                 </tr>
               </thead>
 
@@ -55,7 +55,7 @@
                   <td>{{item[2]}}</td>
                   <td>{{item[3]}}</td>
                   <td><a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                    <a href="#" onclick="deleteitem('{{item[0]}}',this)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                    <a href="#" onclick="deleteitem('{{item[0]}}')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                 </td>
                 </tr>
                 {% endfor %}
@@ -65,19 +65,15 @@
         </div>
       </div>
       <script>
-  
-      function deleteitem(id,obj){
-        
-          //if (confirm('确定删除吗？')){
-            //   $.get("/tb/delete",{"id":id},function(data){
-            //       if(data=="1"){
-            //         alert("删除成功");
-            //         $(obj).parent().find("tr").remove()
-            //       }else{
-            //           alert("请稍后重试");
-            //       }
-            //   })
-         // }
+      function deleteitem(id){
+          if (confirm('确定删除吗？')){
+              $.get("/tb/delete",{"id":id},function(){
+                // $('#tb')
+                //         .DataTable()
+                //         .search($('input[type="search"]').val(), false, true)
+                //         .draw();
+              })
+          }
       }
       </script>
       {% endblock %}
